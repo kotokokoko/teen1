@@ -210,7 +210,7 @@ export default function Home() {
           <div className="h-[700px] flex flex-col">
             <div className="p-4 bg-blue-50 border-b border-blue-200">
               <h1 className="text-2xl font-semibold text-gray-800">AI Poet Chat</h1>
-              <p className="text-sm text-gray-600">Chat with the grumy teenager </p>
+              <p className="text-sm text-gray-600">Chat with the grumpy teenager </p>
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 space-y-6">
