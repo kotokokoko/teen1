@@ -1,34 +1,24 @@
-tsx
-Copy
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Mic, Square, Send, Volume2, User, Bot } from 'lucide-react';
 
-// ... (keep all the existing interfaces and component logic)
+// ... (keep all the existing interfaces and logic)
 
 export default function Home() {
   // ... (keep all the existing state and functions)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-100 to-gray-200 bg-opacity-80 backdrop-filter backdrop-blur-sm">
+    <div className="min-h-screen bg-gradient-to-b from-green-100 to-gray-200" style={{backgroundImage: "url('https://i.redd.it/horror-vibes-in-malvern-hills-v0-9o0j4iq1g5jc1.jpg')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
       <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="bg-white bg-opacity-40 rounded-xl shadow-xl overflow-hidden backdrop-filter backdrop-blur-md">
+        <div className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl shadow-xl overflow-hidden">
           <div className="h-[700px] flex flex-col">
-            <div className="p-4 bg-green-50 bg-opacity-60 border-b border-green-200">
-              <h1 className="text-3xl font-serif font-semibold text-green-800">Misty Countryside Chat</h1>
-              <p className="text-sm text-gray-600 italic">Whisper your thoughts to the foggy fields...</p>
+            <div className="p-4 bg-green-50 bg-opacity-70 border-b border-green-200">
+              <h1 className="text-2xl font-serif font-semibold text-gray-800">Misty Meadows Chat</h1>
+              <p className="text-sm text-gray-600 italic">Converse with the spirit of the countryside</p>
             </div>
 
-            <div 
-              className="flex-1 overflow-y-auto p-4 space-y-6"
-              style={{
-                backgroundImage: `url(https://i.redd.it/horror-vibes-in-malvern-hills-v0-hzx9t8jk4tra1.jpg?s=6ce6638ffb5a55a78a0fb7d88adc06e5d07c50e7)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundBlendMode: 'overlay',
-              }}
-            >
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
               {messages.slice(1).map((message) => (
                 <div
                   key={message.id}
@@ -37,8 +27,8 @@ export default function Home() {
                   }`}
                 >
                   {message.role === 'assistant' && (
-                    <div className="w-8 h-8 rounded-full bg-green-200 bg-opacity-70 flex items-center justify-center">
-                      <Bot size={20} className="text-green-800" />
+                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                      <Bot size={20} className="text-green-600" />
                     </div>
                   )}
 
@@ -50,8 +40,8 @@ export default function Home() {
                     <div
                       className={`rounded-2xl p-4 ${
                         message.role === 'user'
-                          ? 'bg-green-600 bg-opacity-70 text-white' + (message.isFloating ? ' animate-pulse' : '')
-                          : 'bg-white bg-opacity-70 text-gray-800'
+                          ? 'bg-green-500 bg-opacity-70 text-white' + (message.isFloating ? ' animate-pulse' : '')
+                          : 'bg-gray-100 bg-opacity-70 text-gray-800'
                       }`}
                     >
                       <p className="whitespace-pre-wrap font-serif">{message.content}</p>
@@ -60,7 +50,7 @@ export default function Home() {
                     {message.role === 'assistant' && (
                       <button
                         onClick={() => speakText(message.content)}
-                        className="mt-2 text-gray-600 hover:text-gray-800 transition-colors"
+                        className="mt-2 text-gray-500 hover:text-gray-700 transition-colors"
                         aria-label="Text to speech"
                       >
                         <Volume2 size={16} />
@@ -68,11 +58,30 @@ export default function Home() {
                     )}
 
                     {message.timestamp && (
-                      <span className="text-xs text-gray-600 mt-1 font-light">
+                      <span className="text-xs text-gray-500 mt-1 italic">
                         {new Date(message.timestamp).toLocaleTimeString()}
                       </span>
                     )}
                   </div>
 
                   {message.role === 'user' && (
-                    <div className="
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                      <User size={20} className="text-gray-600" />
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {isLoading && (
+                <div className="flex justify-start items-center space-x-2">
+                
+
+
+Copy
+Regenerate
+
+Type a message...
+
+Claude
+
+Click to dictate
