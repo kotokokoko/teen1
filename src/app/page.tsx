@@ -1,69 +1,76 @@
-import React from 'react';
+'use client';
 
-const CountrysideScene: React.FC = () => {
+import React, { useState, useRef, useEffect } from 'react';
+import { Mic, Square, Send, Volume2, User, Bot } from 'lucide-react';
+
+// ... (keep all the existing interfaces and component logic)
+
+export default function Home() {
+  // ... (keep all the existing state and functions)
+
   return (
-    <div style={{
-      height: '100vh',
-      width: '100%',
-      overflow: 'hidden',
-      background: 'linear-gradient(to bottom, #d1d5db, #c1d1c1)',
-      fontFamily: 'Georgia, serif',
-      color: '#2f3e46',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '2rem',
-      position: 'relative',
-    }}>
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'white',
-        opacity: 0.4,
-        mixBlendMode: 'overlay',
-      }}></div>
-      <h1 style={{
-        fontSize: 'clamp(2rem, 5vw, 4rem)',
-        marginBottom: '1rem',
-        textAlign: 'center',
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        Misty Countryside
-      </h1>
-      <p style={{
-        fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-        maxWidth: '800px',
-        textAlign: 'center',
-        marginBottom: '2rem',
-        lineHeight: 1.6,
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        A drizzly stretch of days settled over the countryside, shrouded in soft mist. 
-        The fields were a quiet patchwork of mossy greens and muted tones, simple and 
-        understated, as if the world had been washed in watercolour.
-      </p>
-      <div style={{
-        width: '100%',
-        maxWidth: '800px',
-        height: '300px',
-        background: '#5f7470',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        position: 'relative',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}>
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(circle, transparent 20%, #2f3e46 120%)',
-          mixBlendMode: 'multiply',
-        }}></div>
-      </div>
-    </div>
-  );
-};
+    <div className="min-h-screen bg-gradient-to-b from-green-100 to-gray-200 bg-opacity-80 backdrop-filter backdrop-blur-sm">
+      <div className="container mx-auto max-w-4xl px-4 py-8">
+        <div className="bg-white bg-opacity-40 rounded-xl shadow-xl overflow-hidden backdrop-filter backdrop-blur-md">
+          <div className="h-[700px] flex flex-col">
+            <div className="p-4 bg-green-50 bg-opacity-60 border-b border-green-200">
+              <h1 className="text-3xl font-serif font-semibold text-green-800">Misty Countryside Chat</h1>
+              <p className="text-sm text-gray-600 italic">Whisper your thoughts to the foggy fields...</p>
+            </div>
 
-export default CountrysideScene;
+            <div 
+              className="flex-1 overflow-y-auto p-4 space-y-6"
+              style={{
+                backgroundImage: `url(https://i.redd.it/horror-vibes-in-malvern-hills-v0-hzx9t8jk4tra1.jpg?s=6ce6638ffb5a55a78a0fb7d88adc06e5d07c50e7)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+              }}
+            >
+              {messages.slice(1).map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex items-start space-x-2 ${
+                    message.role === 'user' ? 'justify-end' : 'justify-start'
+                  }`}
+                >
+                  {message.role === 'assistant' && (
+                    <div className="w-8 h-8 rounded-full bg-green-200 bg-opacity-70 flex items-center justify-center">
+                      <Bot size={20} className="text-green-800" />
+                    </div>
+                  )}
+
+                  <div
+                    className={`flex flex-col max-w-[70%] ${
+                      message.role === 'user' ? 'items-end' : 'items-start'
+                    }`}
+                  >
+                    <div
+                      className={`rounded-2xl p-4 ${
+                        message.role === 'user'
+                          ? 'bg-green-600 bg-opacity-70 text-white' + (message.isFloating ? ' animate-pulse' : '')
+                          : 'bg-white bg-opacity-70 text-gray-800'
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap font-serif">{message.content}</p>
+                    </div>
+
+                    {message.role === 'assistant' && (
+                      <button
+                        onClick={() => speakText(message.content)}
+                        className="mt-2 text-gray-600 hover:text-gray-800 transition-colors"
+                        aria-label="Text to speech"
+                      >
+                        <Volume2 size={16} />
+                      </button>
+                    )}
+
+                    {message.timestamp && (
+                      <span className="text-xs text-gray-600 mt-1 font-light">
+                        {new Date(message.timestamp).toLocaleTimeString()}
+                      </span>
+                    )}
+                  </div>
+
+                  {message.role === 'user' && (
+                    <div className="
